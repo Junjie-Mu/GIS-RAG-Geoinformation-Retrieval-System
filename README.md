@@ -1,93 +1,93 @@
-# GIS-RAG 地理信息 RAG 系统
+# GIS-RAG Geospatial RAG System
 
-基于本地大模型的 GIS 检索增强生成系统：支持 PDF 文档解析与 GIS（矢量/栅格）元数据提取，并提供 Web 界面与 API。
+A local-LLM-powered geospatial Retrieval-Augmented Generation (RAG) system. It supports PDF parsing and GIS (vector/raster) metadata extraction, and provides both a Web UI and an API.
 
-## 功能
+## Features
 
-- PDF 文档解析与索引（课件/教材/技术文档）
-- 矢量/栅格数据元数据提取与检索
-- 本地 LLM问答
-- Web（Streamlit）与 API（FastAPI）两种入口
+- PDF parsing and indexing (slides/textbooks/technical docs)
+- Vector/raster GIS metadata extraction and retrieval
+- Local LLM Q&A
+- Two entry points: Web (Streamlit) and API (FastAPI)
 
-## 环境要求
+## Requirements
 
 - Python 3.10+
-- 本地部署建议有8GB显存至少
+- For local GPU deployment, 8GB+ VRAM is recommended
 
-## 快速开始
+## Quick Start
 
-### 1) 安装依赖
+### 1) Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-建议在虚拟环境中运行（venv/conda 均可）。
+It is recommended to run inside a virtual environment (venv/conda both work).
 
-### 2) 配置 .env（推荐）
+### 2) Configure `.env` (recommended)
 
-项目会从根目录的 `.env` 读取配置（见 [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)）。至少需要配置 Instruct 模型路径与设备：
+The project reads configuration from `.env` in the repository root (see [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)). At minimum, set the Instruct model path and device:
 
 ```ini
-# 基础模型
+# Base model (Instruct)
 LLM_INSTRUCT_MODEL_PATH=D:\HuggingFace\Models\Qwen3-4B-Instruct-2507-FP8
 LLM_INSTRUCT_MODEL_NAME=Qwen3-4B-Instruct-2507-FP8
 
-# 可选：思考模型
+# Optional: thinking model (Deep Think)
 LLM_THINKING_MODEL_PATH=D:\HuggingFace\Models\Qwen3-4B-Thinking-2507-FP8
 LLM_THINKING_MODEL_NAME=Qwen3-4B-Thinking-2507-FP8
 
-# 设备：cuda 或 cpu
+# Device: cuda or cpu
 DEVICE=cuda
 
-# 服务端口（可选）
+# Service ports (optional)
 API_HOST=127.0.0.1
 API_PORT=8000
 WEB_HOST=127.0.0.1
 WEB_PORT=8501
 ```
 
-嵌入模型、检索策略、分块参数等也可在 `.env` 中覆盖，默认值以 [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py) 为准。
+Embedding settings, retrieval strategy, chunking parameters, etc. can also be overridden via `.env`. Defaults are defined in [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py).
 
-### 3) 启动 Web
+### 3) Start the Web UI
 
 ```bash
 python start_web.py
 ```
 
-默认地址：`http://localhost:8501`
+Default URL: `http://localhost:8501`
 
-### 4) 启动 API
+### 4) Start the API
 
 ```bash
 python start_api.py
 ```
 
-默认地址：`http://localhost:8000`  
-Swagger 文档：`http://localhost:8000/docs`
+Default URL: `http://localhost:8000`  
+Swagger docs: `http://localhost:8000/docs`
 
-## 数据与目录
+## Data & Directories
 
-项目默认使用 `data/` 作为工作数据目录（见 [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)）：
+By default, the project uses `data/` as its working data directory (see [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)):
 
 ```
 data/
-  pdfs/          # PDF 文档
-  vector/        # 矢量数据（.shp/.geojson/.gpkg/.kml）
-  raster/        # 栅格数据（.tif/.tiff/.jp2/.img/.nc）
-  chroma_db/     # 向量库持久化目录
-  conversations/ # Web 历史对话
-  uploads/       # Web 上传的原始文件缓存
-logs/            # 运行日志
+  pdfs/          # PDF documents
+  vector/        # Vector data (.shp/.geojson/.gpkg/.kml)
+  raster/        # Raster data (.tif/.tiff/.jp2/.img/.nc)
+  chroma_db/     # Vector store persistence (Chroma)
+  conversations/ # Web chat history
+  uploads/       # Raw uploaded file cache (Web)
+logs/            # Runtime logs
 ```
 
-你可以直接把文件放到对应目录，也可以在 Web 页面上传。
+You can either place files directly into these folders, or upload them via the Web UI.
 
-## 支持的数据格式
+## Supported Formats
 
-- 矢量：Shapefile（.shp）、GeoJSON（.geojson）、GeoPackage（.gpkg）、KML（.kml）
-- 栅格：GeoTIFF（.tif/.tiff）、JPEG2000（.jp2）、IMG（.img）、NetCDF（.nc）
-- 文档：PDF（.pdf）
+- Vector: Shapefile (.shp), GeoJSON (.geojson), GeoPackage (.gpkg), KML (.kml)
+- Raster: GeoTIFF (.tif/.tiff), JPEG2000 (.jp2), IMG (.img), NetCDF (.nc)
+- Documents: PDF (.pdf)
 
 
 
