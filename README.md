@@ -1,20 +1,20 @@
-# GIS-RAG: Geoinformation-Retrieval-System
+# GIS-RAG: Geoinformation-Retrieval-System 🛰️
 
 Unlock the full potential of your geospatial data with **GIS-RAG**.
 
-This local-first Retrieval-Augmented Generation (RAG) system enables you to interact with your data using natural language. Whether it's technical PDF manuals 📄, vector shapefiles 🗺️, or satellite imagery metadata 🛰️, GIS-RAG extracts the critical information and allows you to "chat" with it—all powered by a secure, local Large Language Model (LLM) 🤖.
+This local-first Retrieval-Augmented Generation (RAG) system enables you to interact with your data using natural language. Whether it's technical PDF manuals, vector shapefiles, or satellite imagery metadata, GIS-RAG extracts the critical information and allows you to "chat" with it—all powered by a secure, local Large Language Model (LLM).
 
 ![System Interface](assets/interface.jpg)
 
-## Features ✨
+## Features
 
-- **Chat with your GIS Data** 💬: seamless Integration of Local LLMs with geospatial datasets.
-- **Multimodal Support** 📦:
-    - **Vector Data** 📍: Intelligently extracts attributes and metadata from Shapefiles (.shp), GeoJSON, and KML.
-    - **Raster Data** 🌍: Understands resolution, bounds, and bands from GeoTIFFs and satellite imagery.
-    - **Documents** 📑: Parses PDFs (slides, research papers) to provide context-aware answers.
-- **Privacy First** 🔒: Fully local execution (embedding & generation) ensures your sensitive data never leaves your machine.
-- **Dual Interface** 🖥️: User-friendly Web UI (Streamlit) for easy interaction and a robust API (FastAPI) for developers.
+- 💬**Chat with your GIS Data**: seamless Integration of Local LLMs with geospatial datasets.
+- 🌍**Multimodal Support** 📦:
+    - **Vector Data**: Intelligently extracts attributes and metadata from Shapefiles (.shp), GeoJSON, and KML.
+    - **Raster Data**: Understands resolution, bounds, and bands from GeoTIFFs and satellite imagery.
+    - **Documents**: Parses PDFs (slides, research papers) to provide context-aware answers.
+- 🔒**Privacy First**: Fully local execution (embedding & generation) ensures your sensitive data never leaves your machine.
+- 🖥️**Dual Interface**: User-friendly Web UI (Streamlit) for easy interaction and a robust API (FastAPI) for developers.
 
 ## Requirements
 
