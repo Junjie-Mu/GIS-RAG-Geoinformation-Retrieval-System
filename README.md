@@ -1,18 +1,33 @@
-# GIS-RAG Geospatial RAG System
+# GIS-RAG: Geoinformation-Retrieval-System
 
-A local-LLM-powered geospatial Retrieval-Augmented Generation (RAG) system. It supports PDF parsing and GIS (vector/raster) metadata extraction, and provides both a Web UI and an API.
+Unlock the full potential of your geospatial data with **GIS-RAG**.
 
-## Features
+This local-first Retrieval-Augmented Generation (RAG) system enables you to interact with your data using natural language. Whether it's technical PDF manuals 📄, vector shapefiles 🗺️, or satellite imagery metadata 🛰️, GIS-RAG extracts the critical information and allows you to "chat" with it—all powered by a secure, local Large Language Model (LLM) 🤖.
 
-- PDF parsing and indexing (slides/textbooks/technical docs)
-- Vector/raster GIS metadata extraction and retrieval
-- Local LLM Q&A
-- Two entry points: Web (Streamlit) and API (FastAPI)
+![System Interface](assets/interface.jpg)
+
+## Features ✨
+
+- **Chat with your GIS Data** 💬: seamless Integration of Local LLMs with geospatial datasets.
+- **Multimodal Support** 📦:
+    - **Vector Data** 📍: Intelligently extracts attributes and metadata from Shapefiles (.shp), GeoJSON, and KML.
+    - **Raster Data** 🌍: Understands resolution, bounds, and bands from GeoTIFFs and satellite imagery.
+    - **Documents** 📑: Parses PDFs (slides, research papers) to provide context-aware answers.
+- **Privacy First** 🔒: Fully local execution (embedding & generation) ensures your sensitive data never leaves your machine.
+- **Dual Interface** 🖥️: User-friendly Web UI (Streamlit) for easy interaction and a robust API (FastAPI) for developers.
 
 ## Requirements
 
 - Python 3.10+
 - For local GPU deployment, 8GB+ VRAM is recommended
+
+## Recommended Models
+
+- LLM (Instruct): [`Qwen/Qwen3-4B-Instruct-2507-FP8`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507-FP8)
+- LLM (Thinking): [`Qwen/Qwen3-4B-Thinking-2507-FP8`](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507-FP8)
+- Embedding model: [`BAAI/bge-m3`](https://huggingface.co/BAAI/bge-m3) (a strong multilingual retrieval model)
+
+These are a practical choice on an RTX 4070 (8GB VRAM) for local inference.
 
 ## Quick Start
 
@@ -26,16 +41,26 @@ It is recommended to run inside a virtual environment (venv/conda both work).
 
 ### 2) Configure `.env` (recommended)
 
-The project reads configuration from `.env` in the repository root (see [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)). At minimum, set the Instruct model path and device:
+This project reads configuration from `.env` in the repository root. Use the provided example file:
+
+```bash
+# Windows (PowerShell)
+Copy-Item .env.example .env
+
+# macOS/Linux
+cp .env.example .env
+```
+
+Then edit `.env` and set at least the Instruct model path and device:
 
 ```ini
 # Base model (Instruct)
-LLM_INSTRUCT_MODEL_PATH=D:\HuggingFace\Models\Qwen3-4B-Instruct-2507-FP8
-LLM_INSTRUCT_MODEL_NAME=Qwen3-4B-Instruct-2507-FP8
+LLM_INSTRUCT_MODEL_PATH=YOUR_LOCAL_MODEL_DIR
+LLM_INSTRUCT_MODEL_NAME=Qwen/Qwen3-4B-Instruct-2507-FP8
 
 # Optional: thinking model (Deep Think)
-LLM_THINKING_MODEL_PATH=D:\HuggingFace\Models\Qwen3-4B-Thinking-2507-FP8
-LLM_THINKING_MODEL_NAME=Qwen3-4B-Thinking-2507-FP8
+LLM_THINKING_MODEL_PATH=YOUR_LOCAL_THINKING_MODEL_DIR
+LLM_THINKING_MODEL_NAME=Qwen/Qwen3-4B-Thinking-2507-FP8
 
 # Device: cuda or cpu
 DEVICE=cuda
@@ -47,7 +72,7 @@ WEB_HOST=127.0.0.1
 WEB_PORT=8501
 ```
 
-Embedding settings, retrieval strategy, chunking parameters, etc. can also be overridden via `.env`. Defaults are defined in [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py).
+Embedding settings, retrieval strategy, chunking parameters, etc. can also be overridden via `.env` (see `.env.example` for a full list).
 
 ### 3) Start the Web UI
 
@@ -68,7 +93,7 @@ Swagger docs: `http://localhost:8000/docs`
 
 ## Data & Directories
 
-By default, the project uses `data/` as its working data directory (see [settings.py](file:///d:/Desktop/GIS-RAG/config/settings.py)):
+By default, the project uses `data/` as its working data directory:
 
 ```
 data/
@@ -88,6 +113,10 @@ You can either place files directly into these folders, or upload them via the W
 - Vector: Shapefile (.shp), GeoJSON (.geojson), GeoPackage (.gpkg), KML (.kml)
 - Raster: GeoTIFF (.tif/.tiff), JPEG2000 (.jp2), IMG (.img), NetCDF (.nc)
 - Documents: PDF (.pdf)
+
+## Acknowledgements
+
+Thanks to the Qwen team and the BAAI team for open-sourcing excellent models.
 
 
 
