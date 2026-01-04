@@ -4,7 +4,7 @@ Unlock the full potential of your geospatial data with **GIS-RAG**.
 
 This local-first Retrieval-Augmented Generation (RAG) system enables you to interact with your data using natural language. Whether it's technical PDF manuals, vector shapefiles, or satellite imagery metadata, GIS-RAG extracts the critical information and allows you to "chat" with it—all powered by a secure, local Large Language Model (LLM).
 
-![System Interface](assets/interface.jpg)
+<img src="assets/interface.jpg" alt="System Interface" width="700" />
 
 ## Features
 
@@ -15,6 +15,11 @@ This local-first Retrieval-Augmented Generation (RAG) system enables you to inte
     - **Documents**: Parses PDFs (slides, research papers) to provide context-aware answers.
 - 🔒**Privacy First**: Fully local execution (embedding & generation) ensures your sensitive data never leaves your machine.
 - 🖥️**Dual Interface**: User-friendly Web UI (Streamlit) for easy interaction and a robust API (FastAPI) for developers.
+
+| Data Type | Preview | Answer |
+|---|---|---|
+| Vector | ![Vector preview](assets/QA3.jpg) | ![Vector answer](assets/QA4.jpg) |
+| Raster | ![Raster preview](assets/QA5.jpg) | ![Raster answer](assets/QA6.jpg) |
 
 ## Requirements
 
