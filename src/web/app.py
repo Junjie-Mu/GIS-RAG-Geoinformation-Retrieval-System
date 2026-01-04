@@ -493,11 +493,23 @@ def show_chat_page():
 
     # Render chat history
     with chat_container:
-        for i, (question, answer) in enumerate(st.session_state.chat_history):
+        for i, item in enumerate(st.session_state.chat_history):
+            # Support both old (question, answer) and new (question, answer, sources) format
+            if len(item) == 3:
+                question, answer, sources = item
+            else:
+                question, answer = item
+                sources = []
             with st.chat_message("user"):
                 st.write(question)
             with st.chat_message("assistant"):
                 st.write(answer)
+                if sources:
+                    with st.expander("📚 Related Documents", expanded=False):
+                        for j, doc in enumerate(sources):
+                            st.write(f"**Document {j+1}:**")
+                            st.write(doc.get('content', ''))
+                            st.divider()
 
     # Question input area
     st.markdown("---")
@@ -587,7 +599,7 @@ def show_chat_page():
                         elif chunk_type == "error":
                             st.error(f"Error: {content}")
                     
-                    # Show related documents
+                    # Show related documents during streaming
                     if source_docs:
                         with st.expander("📚 Related Documents", expanded=False):
                             for i, doc in enumerate(source_docs):
@@ -595,12 +607,13 @@ def show_chat_page():
                                 st.write(doc.get('content', ''))
                                 st.divider()
                     
-                    # Add final answer to chat history
+                    # Add final answer to chat history (now including source_docs)
                     if answer_content:
                         full_answer = answer_content
                         if thinking_content:
                             full_answer = f"[Thinking process collapsed]\n\n{answer_content}"
-                        st.session_state.chat_history.append((question, full_answer))
+                        # Store as (question, answer, sources) tuple
+                        st.session_state.chat_history.append((question, full_answer, source_docs))
                         
                         # Auto-save conversation
                         if st.session_state.current_conversation_id is None:
